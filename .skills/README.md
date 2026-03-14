@@ -1,6 +1,6 @@
 # EA Skills
 
-Enterprise Architecture Skills für GitHub Copilot — spezialisierte Fähigkeiten für Architektur-Dokumentation, IT-Vertragsanalyse und IT-Lösungsbewertung im EU/DACH-Kontext.
+Enterprise Architecture Skills für GitHub Copilot — spezialisierte Fähigkeiten für Architektur-Dokumentation, Architekturentscheidungen (ADR), IT-Vertragsanalyse und IT-Lösungsbewertung im EU/DACH-Kontext.
 
 ## Installation
 
@@ -16,6 +16,7 @@ Einzelnen Skill installieren:
 npx skills add gtonic/ea-skills/c4-architecture
 npx skills add gtonic/ea-skills/it-contract-analysis
 npx skills add gtonic/ea-skills/it-solution-assessment
+npx skills add gtonic/ea-skills/architecture-decision-record
 ```
 
 ## Voraussetzungen
@@ -30,6 +31,7 @@ npx skills add gtonic/ea-skills/it-solution-assessment
 | [c4-architecture](#c4-architecture) | Architektur-Dokumentation (C4-Modell) | DE / EN | ASCII-Notation, 5 Diagrammtypen |
 | [it-contract-analysis](#it-contract-analysis) | IT-Vertragsrisikoanalyse | DE | ⚠️ Enterprise-Endpunkt erforderlich |
 | [it-solution-assessment](#it-solution-assessment) | IT-Lösungsbewertung | DE | SaaS/On-Prem-Vergleich, K.O.-Kriterien |
+| [architecture-decision-record](#architecture-decision-record) | Architecture Decision Records | DE / EN | MADR v3.0, Weighted Scoring, Konsistenzprüfung |
 
 ## Enthaltene Skills
 
@@ -130,6 +132,36 @@ Strukturierte Bewertung von IT-Projektanträgen für SaaS- und On-Premises-Lösu
     └── tco-model.md                # TCO-Modell (5 Jahre, SaaS vs. On-Prem)
 ```
 
+### architecture-decision-record
+
+Strukturierte Erstellung, Bewertung und Verwaltung von Architecture Decision Records (ADRs) nach dem MADR-Template v3.0.
+
+| Eigenschaft | Detail |
+|---|---|
+| **Template** | MADR v3.0 (Voll, Y-Statement, Kurzform) |
+| **Bewertungsmethoden** | Pro/Contra, Weighted Scoring, Utility Tree (ATAM) |
+| **Konsistenzprüfung** | Automatische Widerspruchserkennung gegen bestehende ADRs |
+| **Ausgabeformate** | Markdown-ADR, Entscheidungsmatrix, Konsequenzen-Map, Decision Log |
+| **Sprachen** | DE / EN |
+
+**Trigger-Beispiele:**
+- *„Erstelle einen ADR für die Datenbankwahl"*
+- *„Dokumentiere die Entscheidung für Microservices vs. Monolith"*
+- *„Bewerte die Optionen für unsere Authentifizierungsstrategie"*
+- *„Prüfe bestehende ADRs auf Konsistenz"*
+
+```
+.skills/architecture-decision-record/
+├── SKILL.md                        # Skill-Definition & Workflow
+├── README.md                       # Dokumentation
+└── references/
+    ├── madr-template.md            # MADR-Template, Status-Lifecycle, Namenskonventionen
+    ├── decision-drivers.md         # Bewertungsmethoden, Utility Tree, ISO 25010
+    └── consistency-checks.md       # Konsistenzprüfung, ADR-Beziehungen, Konflikterkennung
+```
+
+---
+
 ## Skill-Zusammenspiel
 
 Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
@@ -137,6 +169,9 @@ Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
 - **c4-architecture** + **it-solution-assessment**: Architekturdiagramme als Grundlage für die technische Bewertung einer Lösung
 - **it-contract-analysis** + **it-solution-assessment**: Vertragsprüfung ergänzt die Vendor-/Compliance-Bewertung
 - **it-contract-analysis** erkennt automatisch, ob der allgemeine [Contract Analysis Skill](https://github.com/skills/contract-analysis) installiert ist, und delegiert nicht-IT-spezifische Verträge (Bau, Arbeitsrecht, Immobilien) dorthin
+- **architecture-decision-record** + **c4-architecture**: C4-Diagramme als Kontext im ADR referenzieren; bei architekturverändernden Entscheidungen aktualisierte Diagramme empfehlen
+- **architecture-decision-record** + **it-solution-assessment**: Lösungsbewertung als Input für ADRs; Scoring-Ergebnisse in die Entscheidungsmatrix übernehmen
+- **architecture-decision-record** + **it-contract-analysis**: Vertragliche Implikationen bei kommerziellen Technologieentscheidungen berücksichtigen
 
 ## Lizenz
 
