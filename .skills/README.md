@@ -73,6 +73,7 @@ Strukturierte, quantitative IT-Vertragsrisikoanalyse für den EU/DACH-Rechtsraum
 | **Methodik** | Ampelsystem (GRÜN/GELB/ROT) + Risikoscore (1–25) |
 | **Rechtsräume** | ABGB, BGB, OR, DSGVO, NIS2, AI Act, Data Act, EVB-IT |
 | **Vertragstypen** | SaaS, Cloud, Outsourcing, Systemintegration, Softwarelizenz, IT-Beratung, AVV |
+| **Zusatzfunktion** | Vertragslebenszyklus — Fristen-Tracking mit Dashboard |
 | **Sprache** | DE |
 
 **Trigger-Beispiele:**
@@ -88,7 +89,8 @@ Strukturierte, quantitative IT-Vertragsrisikoanalyse für den EU/DACH-Rechtsraum
 ├── references/
 │   ├── it-contracts.md             # IT-Vertragstypen & 50-Punkte-Checkliste
 │   ├── dach-legal-framework.md     # DACH-Zivilrecht
-│   └── eu-regulations.md           # EU-Regulatorik
+│   ├── eu-regulations.md           # EU-Regulatorik
+│   └── contract-lifecycle.md       # Vertragslebenszyklus & Fristen-Tracking
 └── evals/
     ├── evals.json                  # Evaluierungs-Szenarien
     └── sample-contracts/           # Musterverträge
@@ -105,6 +107,7 @@ Strukturierte Bewertung von IT-Projektanträgen für SaaS- und On-Premises-Lösu
 | **Methodik** | Gewichtetes Scoring (0–3) + Ampelsystem (GRÜN/GELB/ROT) + K.O.-Kriterien |
 | **Lösungstypen** | SaaS, On-Premises, Hybrid, Vergleich |
 | **Bewertungsdimensionen** | Vendor, Sicherheit, Compliance, Architektur, Integration, Betrieb |
+| **Zusatzfunktion** | TCO-Kalkulation — 5-Jahres-Kostenmodell SaaS vs. On-Prem |
 | **Sprache** | DE |
 
 **Trigger-Beispiele:**
@@ -123,7 +126,8 @@ Strukturierte Bewertung von IT-Projektanträgen für SaaS- und On-Premises-Lösu
     ├── onprem-criteria.md          # On-Prem-Kriterienkatalog (68 Kriterien)
     ├── vendor-assessment.md        # Vendor Due Diligence (29 Kriterien)
     ├── security-compliance.md      # Sicherheit & Regulatorik (50 Kriterien)
-    └── scoring-templates.md        # Bewertungsvorlagen & Vergleichsmatrix
+    ├── scoring-templates.md        # Bewertungsvorlagen & Vergleichsmatrix
+    └── tco-model.md                # TCO-Modell (5 Jahre, SaaS vs. On-Prem)
 ```
 
 ## Skill-Zusammenspiel
