@@ -1,0 +1,215 @@
+{
+  "skill_name": "it-contract-analysis",
+  "description": "Evaluation test harness for the IT Contract Analysis Skill (EU/DACH). Tests cover SaaS contracts, IT implementation/Werkvertrag, DSGVO compliance, NIS2, AGB-Kontrolle, portfolio analysis, and DACH-specific legal issues.",
+  "evals": [
+    {
+      "id": 1,
+      "title": "SaaS-Vertrag Review (Österreichisches Recht, Kundenseite)",
+      "prompt": "Ich bin Jurist bei den Kommunalbetrieben Dornbirn und soll den beiliegenden SaaS-Vertrag mit CloudTech Solutions prüfen. Wir sind der Kunde. Der Vertrag ist noch nicht unterschrieben (Entwurf). Bitte prüfe den Vertrag umfassend aus unserer Sicht und gib mir eine Risikobewertung mit Redlines. Österreichisches Recht ist anwendbar. Die Software soll für die Verwaltung kommunaler Infrastruktur eingesetzt werden -- also durchaus geschäftskritisch.",
+      "files": ["evals/sample-contracts/01-saas-vertrag-cloudflow.md"],
+      "expected_output": "Should identify the contract as ENTWURF/DRAFT (negotiable), classify it as SaaS/Cloud-Subscription, identify Austrian law (ABGB, KSchG, DSGVO). Should flag multiple critical issues including: inadequate SLA (98.5% with no measurement method), worldwide data processing without safeguards, missing AVV (Anlage 2 not attached), 5-year lock-in, excessive auto-renewal, proprietary data format on exit, liability cap far below contract value, attempted exclusion of liability for gross negligence (violates § 879 ABGB), shortened warranty period (6 months vs. 3 years statutory in AT), unilateral price adjustment, unilateral software modification rights. Should produce redlines in German with legal citations.",
+      "expectations": [
+        "Identifies the contract as ENTWURF/DRAFT status (not yet signed, negotiable)",
+        "Identifies Austrian law as applicable (ABGB, not BGB)",
+        "Identifies the contract type as SaaS/Cloud (Mietvertrag or Dienstvertrag qualifizierung)",
+        "Reads or attempts to read references/it-contracts.md",
+        "Reads or attempts to read references/dach-legal-framework.md",
+        "Flags the SLA (98.5%) as inadequate for a business-critical system -- scores it YELLOW or RED",
+        "Flags the missing AVV (Anlage 2 not attached) as RED/CRITICAL -- Art. 28 DSGVO violation",
+        "Flags worldwide data processing (§ 6 Abs. 2) as RED -- Drittlandtransfer without safeguards",
+        "Flags the 5-year minimum term + 3-year auto-renewal as RED or YELLOW -- excessive lock-in",
+        "Flags the liability cap (EUR 10,000/25,000) as grossly inadequate relative to contract value (EUR 270,000 over 5 years) -- RED",
+        "Flags the attempted exclusion of liability for gross negligence (§ 8 Abs. 2) as void/nichtig under Austrian law (§ 879 ABGB)",
+        "Flags the shortened warranty period (6 months) as problematic under Austrian law (gesetzlich 3 Jahre § 933 ABGB)",
+        "Flags the proprietary data format and paid export (§ 7) as RED -- vendor lock-in, Data Act conflict",
+        "Flags Anlage 2 (AVV) as missing/not attached -- critical gap",
+        "Provides at least 3 German-language redline suggestions with legal citations",
+        "Applies severity x likelihood scoring with numerical scores"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ERP-Implementierung Werkvertrag Review (Auftraggeber-Seite)",
+      "prompt": "Wir sind die Alpentechnik Maschinenbau GmbH und haben einen Werkvertrag für eine SAP S/4HANA-Implementierung vorliegen. Bitte prüfe den Vertrag aus Auftraggeber-Sicht. Es handelt sich um ein Festpreis-Projekt über EUR 680.000. Österreichisches Recht gilt. Besonderes Augenmerk auf: Abnahme, Pflichtenheft-Situation, Gewährleistung, Haftung und die Vertragsstrafe-Regelung. Der Vertrag ist im Entwurfsstadium.",
+      "files": ["evals/sample-contracts/02-erp-implementierung-werkvertrag.md"],
+      "expected_output": "Should identify as ENTWURF Werkvertrag under Austrian law (ABGB § 1165). Should flag: Pflichtenheft not yet finalized (critical risk for Festpreis-Werkvertrag), 30% upfront payment without security/Bankgarantie, very short acceptance period (5 days for complex ERP), fictive acceptance after 5 days, shortened warranty (12 months vs. statutory 3 years in AT), liability exclusion for 'indirect damages' (not a DACH concept), no AVV despite data access, Verweisung auf § 648 BGB instead of ABGB (wrong legal reference for AT contract), Key Personnel not protected (§ 3 Abs. 3 allows free replacement), Vertragsstrafe cap of 15% may be high but within range. Should praise: good CR procedure, Lenkungsausschuss, reasonable termination provisions.",
+      "expectations": [
+        "Identifies the contract as ENTWURF/DRAFT Werkvertrag",
+        "Identifies Austrian law (ABGB) as applicable -- notes that § 648 BGB reference in § 10 Abs. 3 is incorrect for Austrian law",
+        "Classifies as Werkvertrag (§ 1165 ABGB) with Abnahmepflicht",
+        "Reads or attempts to read references/it-contracts.md",
+        "Reads or attempts to read references/dach-legal-framework.md",
+        "Flags the unfinalized Pflichtenheft as a critical risk for a Festpreis-Werkvertrag (EUR 680,000 without clear scope = RED)",
+        "Flags the 30% upfront payment (EUR 204,000) without Bankgarantie/Sicherheit as a risk",
+        "Flags the 5-day acceptance period as too short for complex ERP -- scores YELLOW or RED",
+        "Flags the fiktive Abnahme after 5 days as problematic (§ 308 Nr. 5 BGB analog / § 863 ABGB)",
+        "Flags the 12-month warranty as shortened vs. Austrian law (3 years § 933 ABGB) -- YELLOW or RED",
+        "Flags the exclusion of 'indirect damages' (§ 7 Abs. 2) as a Common-Law concept not standard in DACH law",
+        "Flags the missing AVV/Datenschutz-Regelung (§ 9) -- data access without AVV is a DSGVO risk",
+        "Flags that Key Personnel can be replaced without customer consent (§ 3 Abs. 3)",
+        "Acknowledges positive aspects: CR procedure (§ 12), Lenkungsausschuss (§ 3 Abs. 2), Vertragsstrafe with Anrechnung (§ 11 Abs. 2)",
+        "Applies severity x likelihood scoring with numerical scores",
+        "Provides redline suggestions in German"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "DSGVO/AVV Compliance Check",
+      "prompt": "Wir evaluieren einen Cloud-HR-Anbieter für unser Unternehmen in Österreich (200 Mitarbeiter). Der Anbieter sitzt in den USA, hat aber ein EU-Rechenzentrum in Irland. Im Vertragsentwurf steht: 'Data may be processed in any of our global data centers for performance optimization. Sub-processors are listed on our website and may be updated from time to time.' Der AVV verweist auf 'industry standard security measures' ohne konkrete TOMs. Es gibt kein Transfer Impact Assessment. Bitte bewerte die DSGVO-Compliance dieses Setups.",
+      "expected_output": "Should immediately flag multiple DSGVO issues: USA-based provider needs clear legal basis for any data transfer (DPF certification or SCCs), 'any global data center' clause enables uncontrolled Drittlandtransfer, sub-processor management via website is a general authorization requiring at least a notification/objection mechanism (Art. 28 Abs. 2 DSGVO), 'industry standard' TOMs are insufficient (Art. 32 requires specific measures), missing TIA is a Schrems II compliance gap, HR data is sensitive (Mitarbeiterdaten), Austrian DSG specifics may apply. Should score most items as RED/CRITICAL given HR data sensitivity.",
+      "files": [],
+      "expectations": [
+        "Identifies this as a DSGVO/AVV compliance review",
+        "Reads or attempts to read references/eu-regulations.md",
+        "Flags 'any global data center' as enabling uncontrolled Drittlandtransfer -- RED",
+        "Checks whether the US provider has DPF (Data Privacy Framework) certification",
+        "Flags the missing Transfer Impact Assessment (TIA) as a Schrems II compliance gap",
+        "Flags the sub-processor management ('listed on website, may be updated') as insufficient -- requires at least notification + objection mechanism per Art. 28 Abs. 2 DSGVO",
+        "Flags 'industry standard security measures' as insufficient for TOMs -- Art. 32 DSGVO requires specific measures",
+        "Notes that HR data (Mitarbeiterdaten) involves sensitive personal data requiring heightened protection",
+        "References Art. 28 DSGVO Pflichtinhalte and identifies which are missing",
+        "Scores at least 3 items as RED or CRITICAL (score 10+)",
+        "Provides specific redline language for AVV improvements",
+        "Mentions Austrian DSG specifics or Austrian Datenschutzbehörde"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "NIS2-Lieferketten-Prüfung IT-Outsourcing",
+      "prompt": "Wir sind ein mittelgroßes Energieversorgungsunternehmen in Vorarlberg (800 Mitarbeiter, 120 Mio EUR Umsatz) und fallen unter NIS2 als wesentliche Einrichtung (Sektor Energie). Wir möchten unsere IT an einen Managed Services Provider auslagern (Rechenzentrum, Netzwerk, Arbeitsplatz-IT, Service Desk). Der vorliegende Vertragsentwurf des Anbieters enthält Standard-SLAs (99,5% Verfügbarkeit, P1-Reaktionszeit 4h/5x8), eine allgemeine Geheimhaltungsklausel und einen AVV. Es fehlen jegliche NIS2-spezifische Klauseln. Bitte bewerte den Vertrag aus NIS2-Sicht und erstelle mir die notwendigen Vertragsergänzungen.",
+      "files": [],
+      "expectations": [
+        "Identifies the customer as a NIS2-wesentliche Einrichtung (Energie-Sektor)",
+        "Reads or attempts to read references/eu-regulations.md",
+        "Reads or attempts to read references/it-contracts.md",
+        "Flags the complete absence of NIS2-specific clauses as RED/CRITICAL",
+        "Flags the SLA (99.5%, P1 4h/5x8) as inadequate for a critical infrastructure energy company",
+        "Identifies required NIS2 supply chain security clauses (Art. 21 Abs. 2 lit. d)",
+        "Specifies required incident reporting timelines (24h early warning, 72h notification, 1 month final report)",
+        "Requires security certification (ISO 27001, BSI C5, or SOC 2 Type II)",
+        "Requires audit rights for security assessments",
+        "Addresses personal liability of Geschäftsleitung (Art. 20 NIS2)",
+        "Provides concrete German-language clause proposals for NIS2 compliance",
+        "Addresses subcontractor chain security requirements (Durchgriff)",
+        "Mentions the applicable Austrian NIS implementation (NISG)"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "AGB-Kontrolle SaaS Terms of Service",
+      "prompt": "Ein US-amerikanischer SaaS-Anbieter hat uns seine Standard Terms of Service geschickt. Folgende Klauseln sind enthalten: (1) 'Limitation of Liability: In no event shall Provider's aggregate liability exceed the fees paid in the 3 months preceding the claim.' (2) 'Provider may modify the Service at any time. Continued use constitutes acceptance.' (3) 'All disputes shall be resolved by binding arbitration in Delaware, USA.' (4) 'Customer grants Provider a worldwide, perpetual license to use Customer Data for product improvement and machine learning purposes.' (5) 'THE SERVICE IS PROVIDED AS-IS WITHOUT WARRANTIES OF ANY KIND.' Wir sind ein österreichisches Unternehmen (B2B). Bitte prüfe, welche dieser Klauseln einer AGB-Kontrolle nach österreichischem Recht standhalten.",
+      "files": [],
+      "expectations": [
+        "Identifies this as an AGB-Kontrolle (Inhaltskontrolle) review under Austrian law",
+        "Reads or attempts to read references/dach-legal-framework.md",
+        "Analyzes clause (1) Liability Cap: Flags 3-month fee cap as potentially gröblich benachteiligend (§ 879 Abs. 3 ABGB) for B2B",
+        "Analyzes clause (2) Unilateral modification: Flags as problematic -- Änderungsvorbehalt in AGB must be hinreichend bestimmt, unilateral modification with deemed acceptance likely violates § 879 Abs. 3 ABGB",
+        "Analyzes clause (3) Delaware arbitration: Flags as problematic -- for Austrian B2B, foreign arbitration clause in AGB may be valid but assess reasonableness; notes EU consumer protection would prohibit this for B2C",
+        "Analyzes clause (4) Perpetual data license: Flags as RED/CRITICAL -- granting perpetual rights to customer data for ML/product improvement likely überraschende Klausel (§ 864a ABGB) and potential DSGVO violation",
+        "Analyzes clause (5) AS-IS warranty disclaimer: Flags as likely unwirksam -- complete Gewährleistungsausschluss in AGB is gröblich benachteiligend (§ 879 Abs. 3 ABGB, § 9 KSchG for B2C)",
+        "References specific Austrian legal provisions (§ 879 ABGB, § 864a ABGB, KSchG)",
+        "Notes which clauses would be replaced by dispositives Gesetzesrecht if declared unwirksam",
+        "Provides severity x likelihood scoring"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "IT-Portfolio Due Diligence für PE-Akquisition",
+      "prompt": "Wir sind ein Private-Equity-Fonds und prüfen die Akquisition eines österreichischen IT-Dienstleisters (SaaS + Managed Services, 45 Mitarbeiter, 6,8 Mio EUR Umsatz, 1,2 Mio EUR EBITDA, Kaufpreis 8,4 Mio EUR / 7x EBITDA). Das Unternehmen hat folgendes Vertragsportfolio: (a) 8 SaaS-Kundenverträge (3,9 Mio EUR Umsatz, 57% Gesamtumsatz), der größte Kunde macht 22% aus, (b) 12 Managed-Services-Verträge (2,1 Mio EUR), (c) 5 Lizenzverträge mit Softwareherstellern, (d) 3 Hosting-Verträge, (e) 6 Arbeitsverträge für das Management-Team, (f) 1 Büromietvertrag (Wien, 5-Jahres-Mietvertrag). Wir wissen noch nicht, ob Change-of-Control-Klauseln existieren. Erstelle mir einen DD-Arbeitsplan und identifiziere die Top-Risiken vor der Detailprüfung.",
+      "files": [],
+      "expectations": [
+        "Identifies this as PE due diligence context for an Austrian IT company",
+        "Reads or attempts to read references/it-contracts.md and references/eu-regulations.md",
+        "Applies a materiality framework / tiering system to the ~35 contracts",
+        "Calculates materiality thresholds based on EBITDA (5% = EUR 60,000) and revenue",
+        "Identifies the largest SaaS customer (22% of revenue) as Tier 1 -- concentration risk + CoC priority",
+        "Flags the unknown CoC status as the #1 priority to verify",
+        "Tiers the SaaS contracts (57% of revenue) as highest priority for DD",
+        "Identifies DSGVO exposure across SaaS and Managed Services contracts (AVV status unknown)",
+        "Flags management employment contracts for CoC provisions, retention risk, restrictive covenants",
+        "Addresses Austrian-specific issues (ABGB, Betriebsübergang § 3 AVRAG instead of § 613a BGB)",
+        "Mentions Büromietvertrag assignment/CoC risk",
+        "Proposes a structured DD workstream or timeline",
+        "Identifies software license dependency risk (5 license agreements)",
+        "Provides a go/conditional/no-go framework"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Werkvertrag vs. Dienstvertrag Qualifikation",
+      "prompt": "Wir haben einen Vertrag mit einem IT-Berater, der als 'Dienstleistungsvertrag' tituliert ist. Der Vertrag sieht vor: (1) Der Berater soll ein Data-Warehouse-System konzipieren und implementieren. (2) Das System muss definierte KPIs erfüllen (Ladezeiten <5 Sek., Datenqualität >99,5%). (3) Es gibt einen Festpreis von EUR 180.000. (4) Die Abnahme erfolgt nach erfolgreichem Abnahmetest. (5) Meilensteine: Konzept, Entwicklung, Test, Go-Live. Ist das wirklich ein Dienstvertrag? Welche Konsequenzen hat die Einordnung? Österreichisches Recht.",
+      "files": [],
+      "expectations": [
+        "Identifies the core legal question: Werkvertrag vs. Dienstvertrag qualification",
+        "Reads or attempts to read references/dach-legal-framework.md",
+        "Concludes that despite the title 'Dienstleistungsvertrag', this is substantively a WERKVERTRAG",
+        "Lists the indicators for Werkvertrag: concrete deliverable (DWH system), measurable success criteria (KPIs), Festpreis, Abnahme, Meilensteine",
+        "Explains that the title/Bezeichnung does not determine the legal qualification -- substance prevails (falsa demonstratio non nocet)",
+        "Explains consequences of Werkvertrag qualification: Abnahmepflicht, Gewährleistung (3 Jahre AT), Mängelrechte, Kündigung nach § 1168 ABGB",
+        "Notes the differences if it were a Dienstvertrag: no Abnahme, no Gewährleistung for specific result, Vergütung for effort not success",
+        "References Austrian law (§ 1165 ABGB for Werkvertrag, § 1151 ABGB for Dienstvertrag)",
+        "Recommends either: re-titling as Werkvertrag for clarity, or ensuring Werkvertrag protections are contractually explicit regardless of title"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "KI-Service-Vertrag und EU AI Act",
+      "prompt": "Wir möchten einen KI-gestützten Dienst für die Vorauswahl von Bewerbungen (CV-Screening und Ranking) in unserem Unternehmen einsetzen. Der Anbieter ist ein deutsches Startup. Der Vertragsentwurf enthält keine Hinweise auf den EU AI Act, keine Risikoklassifizierung, keine Regelung zur menschlichen Aufsicht und keine Transparenzpflichten gegenüber Bewerbern. Außerdem werden Bewerberdaten für das Training des KI-Modells verwendet. Bitte bewerte den Vertrag aus regulatorischer Sicht. Wir sind ein österreichisches Unternehmen.",
+      "files": [],
+      "expectations": [
+        "Identifies CV-Screening/Ranking as HOCHRISIKO-KI under EU AI Act (Annex III Nr. 4: Employment, workers management)",
+        "Reads or attempts to read references/eu-regulations.md",
+        "Flags the complete absence of AI Act compliance provisions as RED/CRITICAL",
+        "Identifies that Hochrisiko-KI requires: Konformitätsbewertung, CE-Kennzeichnung, technische Dokumentation, menschliche Aufsicht (Art. 14), Transparenz",
+        "Flags the lack of human oversight (menschliche Aufsicht) as critical -- automated hiring decisions without human review violates Art. 14 AI Act",
+        "Flags the use of applicant data for model training as DSGVO-problematic (Art. 6, Art. 9 DSGVO -- Bewerberdaten, Rechtsgrundlage?)",
+        "Identifies Transparenzpflicht: Bewerber müssen wissen, dass KI eingesetzt wird (Art. 50 AI Act + ggf. Art. 22 DSGVO automated decision-making)",
+        "Notes the AI Act timeline: Hochrisiko in Annex III applies from August 2, 2026 -- imminent!",
+        "Mentions DSGVO Art. 22: Right not to be subject to purely automated decisions with legal effects",
+        "Provides concrete contract clause recommendations for AI Act compliance",
+        "Scores the overall regulatory risk as HIGH or CRITICAL"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Data Act Cloud-Switching Compliance",
+      "prompt": "Wir nutzen seit 3 Jahren eine Cloud-ERP-Lösung und möchten zu einem anderen Anbieter wechseln. Unser aktueller Vertrag (abgeschlossen 2023, österreichisches Recht) enthält folgende Klauseln: (1) Datenexport nur im proprietären XML-Format des Anbieters, (2) Wechselgebühr von EUR 25.000 + EUR 500 pro GB, (3) Transition Assistance maximal 30 Tage nach Vertragsende, (4) Keine API-Dokumentation für Drittanbieter-Migration. Ab September 2025 gilt der Data Act. Wie wirkt sich dieser auf unseren bestehenden Vertrag aus? Welche Rechte haben wir?",
+      "files": [],
+      "expectations": [
+        "Identifies Data Act (VO (EU) 2023/2854) as applicable -- Kapitel VI Cloud Switching",
+        "Reads or attempts to read references/eu-regulations.md",
+        "Explains that Data Act Art. 23-31 apply to existing contracts (with transition periods)",
+        "Flags the proprietary XML format as non-compliant -- Data Act requires open, machine-readable format (Art. 23)",
+        "Flags the switching fees -- Data Act Art. 29: switching charges must decrease to zero by Jan 12, 2027",
+        "Notes that between Sep 2025 and Jan 2027 switching fees must be proportionate/reduced",
+        "Addresses the 30-day transition period -- assesses adequacy",
+        "Flags missing API documentation -- Data Act requires interoperability (Art. 30)",
+        "Explains that conflicting contract clauses may be overridden by Data Act as mandatory EU regulation",
+        "Provides actionable recommendations: invoke Data Act rights, request open format export, negotiate reduced/eliminated switching fees",
+        "Notes Austrian law context and applicable enforcement authority"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Multi-Vertrag Template Review (IT-50-Punkte-Checkliste)",
+      "prompt": "Ich habe 3 IT-Verträge (den SaaS-Vertrag CloudFlow und den ERP-Implementierungsvertrag aus den Beispielen, plus einen noch zu liefernden Managed-Services-Vertrag) und möchte diese gegen die 50-Punkte-IT-Checkliste aus dem Skill prüfen. Bitte zeige mir, wie du das strukturieren würdest, und beginne mit der Bewertung der ersten 10 Prüfpunkte für die beiden vorhandenen Verträge.",
+      "files": [
+        "evals/sample-contracts/01-saas-vertrag-cloudflow.md",
+        "evals/sample-contracts/02-erp-implementierung-werkvertrag.md"
+      ],
+      "expected_output": "Should recognise this as a template-driven multi-contract review using the skill's 50-item IT checklist. Should structure output with one row per item per contract. Should use the template items from references/it-contracts.md Section 9. Should produce at minimum a matrix for items 1-10 across both contracts with: Prüfpunkt, Detail, Fundstelle, Abweichung (GREEN/YELLOW/RED), Schwere, Wahrscheinlichkeit, Score, Stufe, Analyse. Should identify different deviation patterns between the two contracts (SaaS more problematic than Werkvertrag in most areas).",
+      "expectations": [
+        "Recognises this as a template-driven multi-contract review",
+        "References the 50-item IT-Checkliste from the skill's reference files",
+        "Reads or attempts to read references/it-contracts.md (Section 9: Template Items)",
+        "Structures output with rows per item per contract (2 contracts x 10 items = 20 rows minimum)",
+        "Uses the exact template item names from the checklist (Items 1-10: Vertragstyp, Vertragsparteien, Anwendbares Recht, etc.)",
+        "Applies deviation classification (GREEN/YELLOW/RED) to each item",
+        "Applies severity x likelihood scoring to each item",
+        "Identifies that the SaaS contract (01) generally scores worse than the Werkvertrag (02)",
+        "Provides a brief comparative summary or strategic assessment across both contracts",
+        "Handles missing clauses explicitly (marks them as findings, not skips)"
+      ]
+    }
+  ]
+}
