@@ -18,7 +18,8 @@ description: >
   DSGVO/AVV-Compliance in Verträgen, NIS2-Lieferkettenpflichten, EVB-IT-Template-Review,
   IT-Beschaffung nach österreichischem/deutschem/EU-Recht, Werkvertrag-vs.-Dienstvertrag-Einordnung,
   AGB-Kontrolle in IT-Verträgen, oder jede Anfrage zur quantitativen IT-Vertragsrisikobewertung
-  im DACH/EU-Kontext.
+  im DACH/EU-Kontext, Vertragslebenszyklus, Fristen-Tracking, Kündigungsfristen-Übersicht,
+  Auto-Renewal-Analyse, SLA-Review-Termine, Vertragsfristen-Dashboard.
 ---
 
 # IT-Vertragsanalyse Skill (EU/DACH)
@@ -93,6 +94,9 @@ Vor Beginn der Analyse prüfen, welche Referenz relevant ist:
   Lies `references/eu-regulations.md`
 - **PE Due Diligence für IT-Unternehmen**: Lies die Referenzen dieses Skills UND die Datei
   `references/pe-due-diligence.md` des Contract Analysis Skills für das allgemeine DD-Framework.
+- **Vertragslebenszyklus und Fristen-Tracking** (Laufzeiten, Kündigungsfristen, Auto-Renewal,
+  SLA-Review-Termine, Meilensteine, Compliance-Fristen):
+  Lies `references/contract-lifecycle.md`
 
 ## Schritt 0: Sicherheitsbestätigung (PFLICHT — vor jeder Analyse)
 
@@ -423,6 +427,43 @@ Verfasse eine kurze (3-5 Absätze) Bewertung auf Führungsebene, die folgende Fr
 3. Welcher Vertrag birgt das höchste aggregierte Risiko und warum?
 4. Wie ist die DSGVO/NIS2-Compliance-Lage über alle IT-Verträge?
 5. Was sind die Top 3-5 priorisierten Maßnahmen?
+
+## Vertragslebenszyklus / Fristen-Tracking
+
+Bei jeder Vertragsanalyse **zusätzlich** alle vertragsrelevanten Fristen systematisch extrahieren
+und als strukturierte Tabelle ausgeben. Dies gilt für Einzel- und Portfolio-Analysen.
+
+### Pflicht-Extraktion
+
+Extrahiere aus jedem analysierten Vertrag mindestens:
+
+1. **Vertragslaufzeit**: Beginn, Ende, Erstlaufzeit
+2. **Kündigungsfristen**: Ordentlich, außerordentlich, Sonderkündigungsrechte
+3. **Automatische Verlängerung**: Dauer, Opt-out-Frist, Preisanpassung
+4. **SLA-Termine**: Berichtsperiode, Review-Rhythmus, Service-Credit-Fristen
+5. **Projekt-Meilensteine** (bei Werkverträgen): Abnahme, Go-Live, Gewährleistungsende
+6. **Compliance-Fristen**: AVV-Review, DSGVO-Löschfristen, NIS2-Meldepflichten
+
+### Ausgabe
+
+Erzeuge für jeden Vertrag eine **Fristen-Übersicht** als Tabelle.
+Bei Portfolio-Analysen zusätzlich ein **Fristen-Dashboard** mit:
+- Nächste Kündigungsfenster (sortiert nach Dringlichkeit)
+- Auto-Renewal-Termine mit Opt-out-Frist
+- Überfällige Reviews (SLA, AVV, TOMs)
+- Kritische Fristen der nächsten 90 Tage
+
+Für detaillierte Vorlagen und Fristen-Kategorien lies `references/contract-lifecycle.md`.
+
+### Warnsignale bei Fristen
+
+| Warnsignal | Ampel | Empfehlung |
+|---|---|---|
+| Auto-Renewal ohne Opt-out-Planung | 🔴 | Erinnerung setzen, Verhandlungsstrategie festlegen |
+| Kündigungsfrist > 12 Monate | 🔴 | Auf marktübliche 3–6 Monate verhandeln |
+| Keine Transition-Frist nach Kündigung | 🔴 | Bridge-Phase (3–6 Monate) vereinbaren |
+| Kein SLA-Review-Mechanismus | 🟡 | Quartalsweisen Review vereinbaren |
+| Preisanpassung bei Verlängerung ohne Cap | 🟡 | Index-Bindung oder prozentualen Cap vereinbaren |
 
 ## Ausgabeformate
 

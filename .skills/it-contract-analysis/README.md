@@ -38,7 +38,8 @@ Das Ergebnis ist ein vollständiges Risikoregister mit Ampelklassifikation, nume
 ├── references/
 │   ├── it-contracts.md               # IT-Vertragstypen & Klauselanalyse (50-Punkte-Checkliste)
 │   ├── dach-legal-framework.md       # DACH-Zivilrecht (BGB, ABGB, OR, AGB-Recht)
-│   └── eu-regulations.md             # EU-Regulatorik (DSGVO, NIS2, AI Act, Data Act)
+│   ├── eu-regulations.md             # EU-Regulatorik (DSGVO, NIS2, AI Act, Data Act)
+│   └── contract-lifecycle.md         # Vertragslebenszyklus & Fristen-Tracking
 └── evals/
     ├── evals.json                    # 10 Evaluierungs-Szenarien mit Erwartungen
     └── sample-contracts/
@@ -54,7 +55,8 @@ Die zentrale Datei, die Copilot als Anweisung liest. Enthält:
 - **Kernmethodik** – 7-Schritte-Prozess von Vertragsklassifikation bis Analysekommentar
 - **IT-spezifische Klauselanalyse** – Prüfpunkte für SLA, Abnahme, Gewährleistung, Haftung, AVV, Kündigung, Exit, IP, Change Request, NIS2, AI Act
 - **Portfolio-Analyse** – Methodik für Multi-Vertrags-Bewertungen
-- **Ausgabeformate** – Deutsche Spaltenüberschriften, Risikoregister-Struktur
+- **Vertragslebenszyklus** – Fristen-Tracking für Laufzeiten, Kündigungsfristen, Auto-Renewal, SLA-Reviews
+- **Ausgabeformate** – Deutsche Spaltenüberschriften, Risikoregister-Struktur, Fristen-Dashboard
 - **Prüfcheckliste** – Qualitätssicherung vor Auslieferung
 - **Eskalationskriterien** – Wann externe Rechtsberatung empfohlen wird
 
@@ -67,6 +69,7 @@ Der Skill liest diese Dateien kontextabhängig nach, bevor er eine Analyse durch
 | `references/it-contracts.md` | Klauselanalyse für 8 IT-Vertragstypen, 50-Punkte-Prüftemplate, Red-Flags-Schnellreferenz | Bei jeder IT-Vertragsprüfung |
 | `references/dach-legal-framework.md` | Vertragstypen-Qualifikation (Werkvertrag/Dienstvertrag), AGB-Recht, Gewährleistung, Haftung, Vertragsstrafe, Vergaberecht | Bei rechtlicher Einordnung, AGB-Kontrolle |
 | `references/eu-regulations.md` | DSGVO/AVV-Pflichten, NIS2-Lieferkette, AI Act, Data Act, DSA/DMA, eIDAS, CRA | Bei regulatorischen Fragen |
+| `references/contract-lifecycle.md` | Fristen-Kategorien, Kündigungsfristen, Auto-Renewal, SLA-Termine, Meilensteine, Compliance-Fristen | Bei Fristen-Tracking, Portfolio-Dashboard, Verlängerungsprüfung |
 
 ### Evaluierungsdaten
 
@@ -96,6 +99,7 @@ Der Skill liest diese Dateien kontextabhängig nach, bevor er eine Analyse durch
 5. **Redline-Generierung** – Fertiger Klauseltext auf Deutsch, Priorität (Muss/Soll/Kann), Fallback-Position, rechtliche Begründung
 6. **Rechtliche Einordnung** – Werkvertrag/Dienstvertrag, AGB/Individualvereinbarung, zwingendes/dispositives Recht, Regulatorik
 7. **Analysekommentar** – Bezug zur Rechtslage, AGB-Tauglichkeit, regulatorische Implikationen
+8. **Vertragslebenszyklus** – Fristen-Extraktion, Fristen-Übersicht pro Vertrag, Fristen-Dashboard bei Portfolio
 
 ## Nutzung
 
@@ -141,6 +145,12 @@ Erstelle eine Risikobewertung über unser IT-Vertragsportfolio (8 SaaS-Verträge
 ```
 Der Vertrag ist als "Dienstleistungsvertrag" tituliert, enthält aber Festpreis, 
 Abnahme und definierte Meilensteine. Ist das wirklich ein Dienstvertrag?
+```
+
+**Fristen-Tracking:**
+```
+Extrahiere alle Vertragslaufzeiten, Kündigungsfristen und Auto-Renewal-Termine 
+aus unserem IT-Vertragsportfolio und erstelle ein Fristen-Dashboard.
 ```
 
 ### Tipps für optimale Ergebnisse
