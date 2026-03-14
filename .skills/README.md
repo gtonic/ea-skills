@@ -1,6 +1,6 @@
 # EA Skills
 
-Enterprise Architecture Skills für GitHub Copilot — spezialisierte Fähigkeiten für Architektur-Dokumentation, Architekturentscheidungen (ADR), IT-Vertragsanalyse und IT-Lösungsbewertung im EU/DACH-Kontext.
+Enterprise Architecture Skills für GitHub Copilot — spezialisierte Fähigkeiten für Architektur-Dokumentation, Architekturentscheidungen (ADR), NFR-Erhebung, IT-Vertragsanalyse und IT-Lösungsbewertung im EU/DACH-Kontext.
 
 ## Installation
 
@@ -17,6 +17,7 @@ npx skills add gtonic/ea-skills/c4-architecture
 npx skills add gtonic/ea-skills/it-contract-analysis
 npx skills add gtonic/ea-skills/it-solution-assessment
 npx skills add gtonic/ea-skills/architecture-decision-record
+npx skills add gtonic/ea-skills/nfr-checklist
 ```
 
 ## Voraussetzungen
@@ -32,6 +33,7 @@ npx skills add gtonic/ea-skills/architecture-decision-record
 | [it-contract-analysis](#it-contract-analysis) | IT-Vertragsrisikoanalyse | DE | ⚠️ Enterprise-Endpunkt erforderlich |
 | [it-solution-assessment](#it-solution-assessment) | IT-Lösungsbewertung | DE | SaaS/On-Prem-Vergleich, K.O.-Kriterien |
 | [architecture-decision-record](#architecture-decision-record) | Architecture Decision Records | DE / EN | MADR v3.0, Weighted Scoring, Konsistenzprüfung |
+| [nfr-checklist](#nfr-checklist) | Non-Functional Requirements | DE / EN | ISO 25010, 11 Kategorien, Architektur-Tactics |
 
 ## Enthaltene Skills
 
@@ -162,6 +164,37 @@ Strukturierte Erstellung, Bewertung und Verwaltung von Architecture Decision Rec
 
 ---
 
+### nfr-checklist
+
+Systematische Erhebung, Dokumentation und Priorisierung von Non-Functional Requirements (NFRs) nach ISO 25010 und TOGAF-Qualitätsattributen.
+
+| Eigenschaft | Detail |
+|---|---|
+| **Qualitätsmodell** | ISO 25010 + TOGAF (11 Kategorien, 40+ Sub-Charakteristiken) |
+| **Erhebungsmethode** | Interaktiver Dialog, kategorie- und szenariobasiert |
+| **Priorisierung** | MoSCoW + Architekturrelevanz (H/M/L) |
+| **Architektur-Tactics** | Konkrete Maßnahmen pro NFR mit Trade-offs |
+| **Ausgabeformate** | NFR-Katalog, Übersichtstabelle, NFR-Karten, Architekturimplikationen-Report |
+| **Sprachen** | DE / EN |
+
+**Trigger-Beispiele:**
+- *„Erhebe die NFRs für unser neues System"*
+- *„Erstelle einen NFR-Katalog für die Web-App"*
+- *„Welche Verfügbarkeitsanforderungen brauchen wir?"*
+- *„Welche Architekturmaßnahmen ergeben sich aus den NFRs?"*
+
+```
+.skills/nfr-checklist/
+├── SKILL.md                        # Skill-Definition & Workflow (6 Schritte)
+├── README.md                       # Dokumentation
+└── references/
+    ├── iso25010-quality-model.md   # 11 Qualitätsattribute, Sub-Charakteristiken, Szenario-Vorlagen
+    ├── nfr-catalog-template.md     # Katalog-Templates (Voll, Kompakt, Karten), Messkriterien
+    └── architecture-tactics.md     # Architektur-Tactics pro Qualitätsattribut, Trade-offs
+```
+
+---
+
 ## Skill-Zusammenspiel
 
 Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
@@ -172,6 +205,9 @@ Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
 - **architecture-decision-record** + **c4-architecture**: C4-Diagramme als Kontext im ADR referenzieren; bei architekturverändernden Entscheidungen aktualisierte Diagramme empfehlen
 - **architecture-decision-record** + **it-solution-assessment**: Lösungsbewertung als Input für ADRs; Scoring-Ergebnisse in die Entscheidungsmatrix übernehmen
 - **architecture-decision-record** + **it-contract-analysis**: Vertragliche Implikationen bei kommerziellen Technologieentscheidungen berücksichtigen
+- **nfr-checklist** + **architecture-decision-record**: NFRs als Decision Drivers für ADRs; bei Architekturrelevanz H wird ein ADR empfohlen
+- **nfr-checklist** + **c4-architecture**: C4-Diagramme zeigen betroffene Komponenten; Deployment-Diagramme referenzieren Verfügbarkeits-/Skalierbarkeits-NFRs
+- **nfr-checklist** + **it-solution-assessment**: NFRs liefern die Bewertungskriterien für die Lösungsbewertung
 
 ## Lizenz
 
