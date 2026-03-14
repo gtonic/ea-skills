@@ -13,6 +13,22 @@ Das Ergebnis ist ein vollständiges Risikoregister mit Ampelklassifikation, nume
 
 > **Hinweis**: Der Skill unterstützt bei rechtlichen Workflows, ersetzt aber keine Rechtsberatung. Alle Analysen sollten von qualifizierten Rechtsexperten geprüft werden.
 
+## ⚠️ Vertraulichkeitshinweis
+
+> **Dieser Skill verarbeitet potenziell vertrauliche Vertragsdaten.**
+>
+> Er darf **nur in einem abgesicherten Enterprise-Umfeld** verwendet werden:
+> - Azure OpenAI im eigenen Tenant
+> - GitHub Copilot Enterprise/Business mit Data Protection
+> - Self-hosted LLM
+>
+> **Bei Aktivierung fragt der Skill aktiv ab**, ob ein abgesicherter Endpunkt vorliegt.
+> Ohne Bestätigung wird die Analyse **nicht durchgeführt**.
+>
+> Bei Nutzung über öffentliche/kostenlose AI-Endpunkte können vertrauliche Vertragsdaten
+> an Dritte gelangen — ein potenzieller Verstoß gegen DSGVO, Vertraulichkeitsvereinbarungen
+> und interne Compliance-Richtlinien.
+
 ## Verzeichnisstruktur
 
 ```

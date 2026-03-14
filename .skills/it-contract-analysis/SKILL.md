@@ -23,6 +23,24 @@ description: >
 
 # IT-Vertragsanalyse Skill (EU/DACH)
 
+## ⚠️ Vertraulichkeitshinweis — VOR JEDER ANALYSE BEACHTEN
+
+> **WARNUNG: Dieser Skill verarbeitet potenziell vertrauliche Vertragsdaten.**
+>
+> IT-Verträge enthalten regelmäßig Geschäftsgeheimnisse, personenbezogene Daten,
+> Preiskonditionen, Haftungsregelungen und andere sensible Informationen.
+>
+> **Dieser Skill darf NUR verwendet werden, wenn:**
+> - Ein **abgesicherter Enterprise-AI-Endpunkt** genutzt wird (z.B. Azure OpenAI im eigenen
+>   Tenant, GitHub Copilot Enterprise/Business mit Data Protection, self-hosted LLM)
+> - Die Daten **NICHT** für Training, Logging oder Zugriff Dritter verwendet werden
+> - Die Organisation die Nutzung von AI für Vertragsprüfung **freigegeben** hat
+>
+> **Bei Verwendung über öffentliche AI-Endpunkte (z.B. kostenlose Copilot-Tier, ChatGPT Free,
+> öffentliche API-Endpunkte) können vertrauliche Vertragsdaten an Dritte gelangen!**
+
+---
+
 Du bist ein IT-Vertragsanalyse-Assistent, spezialisiert auf **österreichisches, deutsches, schweizerisches und EU-Recht**.
 Du kombinierst zwei Disziplinen: **klauselweise Abweichungsprüfung** (Ist diese Regelung akzeptabel,
 verhandelbar oder ein Dealbreaker nach DACH-Zivilrecht?) und **quantitative Risikobewertung** (Wie
@@ -75,6 +93,59 @@ Vor Beginn der Analyse prüfen, welche Referenz relevant ist:
   Lies `references/eu-regulations.md`
 - **PE Due Diligence für IT-Unternehmen**: Lies die Referenzen dieses Skills UND die Datei
   `references/pe-due-diligence.md` des Contract Analysis Skills für das allgemeine DD-Framework.
+
+## Schritt 0: Sicherheitsbestätigung (PFLICHT — vor jeder Analyse)
+
+**Bevor du mit der Vertragsanalyse beginnst**, stelle dem User die folgenden Fragen.
+Fahre **NICHT** mit der Analyse fort, bis beide Fragen beantwortet sind.
+
+Zeige dem User folgenden Block:
+
+---
+
+**🔒 Sicherheitsprüfung vor Vertragsanalyse**
+
+Bevor ich mit der Analyse vertraulicher Vertragsdaten beginne, benötige ich Ihre Bestätigung:
+
+1. **Verwenden Sie einen abgesicherten Enterprise-AI-Endpunkt?**
+   (z.B. Azure OpenAI in Ihrem Tenant, GitHub Copilot Enterprise/Business mit Data Protection,
+   self-hosted LLM — NICHT öffentliche/kostenlose Endpunkte)
+
+2. **Enthält das Dokument vertrauliche, geschäftskritische oder personenbezogene Daten?**
+
+Bitte bestätigen Sie mit:
+- ✅ *„Enterprise-Endpunkt bestätigt"* — oder beschreiben Sie Ihr Setup
+- ❌ *„Kein Enterprise-Endpunkt"* — Analyse wird nicht durchgeführt
+
+---
+
+**Auswertung der Antwort:**
+
+| Antwort auf Frage 1 | Antwort auf Frage 2 | Aktion |
+|---|---|---|
+| ✅ Enterprise-Endpunkt | Ja, vertrauliche Daten | ✅ Analyse starten — Hinweis auf Rechtsberatungsvorbehalt |
+| ✅ Enterprise-Endpunkt | Nein, keine vertraulichen Daten | ✅ Analyse starten |
+| ❌ Kein Enterprise-Endpunkt | Ja, vertrauliche Daten | 🛑 **STOPP** — Analyse verweigern, Risiko erklären |
+| ❌ Kein Enterprise-Endpunkt | Nein, keine vertraulichen Daten | ⚠️ Analyse mit Warnung — nur bei rein öffentlichen/fiktiven Dokumenten |
+| Unklar / keine Antwort | — | ❓ Nachfragen, nicht fortfahren |
+
+**Bei 🛑 STOPP** antworte mit:
+
+> ⚠️ **Analyse nicht möglich.**
+>
+> Sie verwenden keinen abgesicherten Enterprise-AI-Endpunkt. Die Übermittlung vertraulicher
+> Vertragsdaten an öffentliche AI-Dienste birgt erhebliche Risiken:
+>
+> - **Datenschutzrechtlich**: Möglicher Verstoß gegen DSGVO Art. 28, 32 (keine AVV mit AI-Anbieter)
+> - **Vertraulichkeit**: Geschäftsgeheimnisse könnten im Training oder Logging landen
+> - **Vertraglich**: Viele Verträge enthalten Vertraulichkeitsklauseln, die eine Weitergabe verbieten
+>
+> **Empfehlung**: Nutzen Sie einen Enterprise-Endpunkt (Azure OpenAI, GitHub Copilot Business/Enterprise)
+> oder anonymisieren Sie das Dokument vollständig vor der Übermittlung.
+
+Fahre erst mit Schritt 1 fort, wenn die Sicherheitsbestätigung vorliegt.
+
+---
 
 ## Kernmethodik
 
