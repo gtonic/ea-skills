@@ -11,7 +11,8 @@ description: >
   Löst auch aus bei: SaaS-Bewertung, Software-Evaluation, Produktvergleich,
   IT-Lösung beurteilen, Projektantrag prüfen, Beschaffungsvorlage, Technologiebewertung,
   Build-vs-Buy, Vendor Assessment, Anbieterbewertung, Ausschreibung, RFP-Bewertung,
-  Investitionsantrag IT, IT-Steckbrief.
+  Investitionsantrag IT, IT-Steckbrief, TCO-Kalkulation, Total Cost of Ownership,
+  Kostenvergleich SaaS On-Prem, 5-Jahres-Kosten, IT-Kosten berechnen.
 ---
 
 # IT Solution Assessment
@@ -60,8 +61,8 @@ Lade die relevanten Referenzdateien basierend auf dem Lösungstyp:
 
 | Lösungstyp | Referenzdateien |
 |---|---|
-| SaaS | `references/vendor-assessment.md`, `references/security-compliance.md`, `references/saas-criteria.md` |
-| On-Premises | `references/vendor-assessment.md`, `references/security-compliance.md`, `references/onprem-criteria.md` |
+| SaaS | `references/vendor-assessment.md`, `references/security-compliance.md`, `references/saas-criteria.md`, `references/tco-model.md` |
+| On-Premises | `references/vendor-assessment.md`, `references/security-compliance.md`, `references/onprem-criteria.md`, `references/tco-model.md` |
 | Vergleich | Alle Referenzdateien |
 
 Für **jedes Kriterium** im Katalog:
@@ -114,6 +115,41 @@ K.O.-Kriterien können je nach Organisationskontext angepasst werden — frage i
 ### Schritt 5: Ausgabe erstellen
 
 Erstelle die Bewertung im gewünschten Format. Standardmäßig erzeuge den **Steckbrief + Detailbewertung**.
+
+### Schritt 6: TCO-Kalkulation
+
+Erstelle für jede bewertete Lösung eine **Total Cost of Ownership Kalkulation über 5 Jahre**.
+Lade dazu `references/tco-model.md`.
+
+#### Ablauf
+
+1. **Kostenparameter erfassen** (aus bereitgestellten Unterlagen oder Rückfrage):
+   - Lizenz-/Abo-Preise (pro User/Monat oder Einmallizenz)
+   - Nutzeranzahl (aktuell + geschätztes Wachstum)
+   - Implementierungsaufwand (extern + intern)
+   - Interner Stundensatz (falls nicht bekannt: Daumenregel Bruttogehalt / 1.000)
+   - Preiserhöhungsannahme (Standard: 7% p.a. für SaaS)
+
+2. **Kostenmodell befüllen** (je nach Lösungstyp):
+   - **SaaS**: Abo, Add-ons, Storage, Implementierung, interner Betrieb, Exit-Reserve
+   - **On-Prem**: Lizenz, Hardware, Implementierung, Wartung, Betrieb, HW-Refresh, Exit
+   - **Vergleich**: Beide Modelle parallel, Break-Even berechnen
+
+3. **Sensitivitätsanalyse** (mindestens 3 Szenarien):
+   - User-Wachstum ±20%
+   - Preiserhöhung optimistisch/pessimistisch
+   - Implementierungsaufwand +30% (Scope Creep)
+
+4. **Versteckte Kosten explizit benennen** — siehe Referenzdatei für typische Kostentreiber
+
+#### Ausgabe
+
+- Bei **Einzelbewertung**: TCO-Tabelle als Teil des Steckbriefs oder Detailbewertung
+- Bei **Vergleich**: Vollständiger TCO-Vergleich mit Break-Even und nicht-monetären Faktoren
+- Bei **Entscheidungsvorlage**: TCO-Zusammenfassung im Abschnitt „5. Kosten (TCO)“
+
+Falls keine konkreten Preise vorliegen, erstelle eine **parametrische Schätzung** mit klar
+gekennzeichneten Annahmen und Bandbreiten.
 
 ---
 

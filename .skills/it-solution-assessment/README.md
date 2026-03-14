@@ -13,6 +13,7 @@ Dieser Skill befähigt GitHub Copilot, IT-Lösungen systematisch zu bewerten —
 3. **SaaS-Kriterien** — Data Residency, SLA, API, Multi-Tenancy, Datenportabilität
 4. **On-Prem-Kriterien** — Technologie-Stack, Runtime, Deployment, Skalierbarkeit
 5. **Integration & Architektur** — API, Protokolle, IdP-Anbindung, Systemlandschaft
+6. **TCO-Kalkulation** — Total Cost of Ownership über 5 Jahre inkl. versteckter Kosten
 
 > **Hinweis**: Der Skill unterstützt bei der strukturierten Bewertung, ersetzt aber keine formale Beschaffungsentscheidung. Alle Bewertungen sollten von den zuständigen Fachbereichen (IT, Security, Legal, Einkauf) geprüft werden.
 
@@ -27,7 +28,8 @@ Dieser Skill befähigt GitHub Copilot, IT-Lösungen systematisch zu bewerten —
     ├── onprem-criteria.md            # On-Prem-Kriterienkatalog mit Prüffragen
     ├── vendor-assessment.md          # Vendor Due Diligence Checkliste
     ├── security-compliance.md        # Sicherheit, Zertifikate, Regulatorik
-    └── scoring-templates.md          # Bewertungsvorlagen & Vergleichsmatrix
+    ├── scoring-templates.md          # Bewertungsvorlagen & Vergleichsmatrix
+    └── tco-model.md                  # TCO-Modell (5 Jahre, SaaS vs. On-Prem)
 ```
 
 ## Trigger-Beispiele
@@ -39,6 +41,8 @@ Dieser Skill befähigt GitHub Copilot, IT-Lösungen systematisch zu bewerten —
 - *„Vendor Due Diligence für [Anbieter]"*
 - *„Make-or-Buy-Analyse"*
 - *„On-Prem vs. SaaS Vergleich"*
+- *„TCO-Kalkulation für [Produkt]"*
+- *„Kostenvergleich SaaS vs. On-Prem über 5 Jahre"*
 
 ## Ausgabeformate
 
@@ -48,6 +52,7 @@ Dieser Skill befähigt GitHub Copilot, IT-Lösungen systematisch zu bewerten —
 | **Detailbewertung** | Vollständige Kriterienmatrix mit Scores | IT-Architektur, Security |
 | **Vergleichsmatrix** | Gegenüberstellung 2–3 Lösungen | Entscheidungsgremien |
 | **Entscheidungsvorlage** | Formale Vorlage für IT-Board | Lenkungsausschuss |
+| **TCO-Kalkulation** | 5-Jahres-Kostenmodell mit Sensitivitätsanalyse | CFO, IT-Controlling |
 
 ## Bewertungsschema
 
@@ -111,3 +116,4 @@ API-Roadmap für Bulk-Export einholen.
 | [vendor-assessment.md](references/vendor-assessment.md) | Vendor Due Diligence | Immer |
 | [security-compliance.md](references/security-compliance.md) | Sicherheit & Regulatorik | Immer |
 | [scoring-templates.md](references/scoring-templates.md) | Bewertungsvorlagen | Immer |
+| [tco-model.md](references/tco-model.md) | TCO-Kalkulation, Kostenkategorien, Vergleich, Break-Even | Bei jeder Bewertung, bei Vergleichen |
