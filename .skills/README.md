@@ -18,6 +18,7 @@ npx skills add gtonic/ea-skills/it-contract-analysis
 npx skills add gtonic/ea-skills/it-solution-assessment
 npx skills add gtonic/ea-skills/architecture-decision-record
 npx skills add gtonic/ea-skills/nfr-checklist
+npx skills add gtonic/ea-skills/knowledge-wiki
 ```
 
 ## Voraussetzungen
@@ -34,6 +35,7 @@ npx skills add gtonic/ea-skills/nfr-checklist
 | [it-solution-assessment](#it-solution-assessment) | IT-Lösungsbewertung | DE | SaaS/On-Prem-Vergleich, K.O.-Kriterien |
 | [architecture-decision-record](#architecture-decision-record) | Architecture Decision Records | DE / EN | MADR v3.0, Weighted Scoring, Konsistenzprüfung |
 | [nfr-checklist](#nfr-checklist) | Non-Functional Requirements | DE / EN | ISO 25010, 11 Kategorien, Architektur-Tactics |
+| [knowledge-wiki](#knowledge-wiki) | Knowledge Base Management | DE / EN | Raw/Wiki/Outputs Pattern, Ingestion/Linting/Reindex |
 
 ## Enthaltene Skills
 
@@ -195,6 +197,39 @@ Systematische Erhebung, Dokumentation und Priorisierung von Non-Functional Requi
 
 ---
 
+### knowledge-wiki
+
+Knowledge Base Management für Enterprise Architecture nach dem **Raw/Wiki/Outputs**-Pattern (inspiriert von Karpathy's LLM Wiki). Unterstützt die systematische Ingestion, Synthese und Verwaltung von EA-Dokumentation.
+
+| Eigenschaft | Detail |
+|---|---|
+| **Pattern** | Raw (immutable sources) → Wiki (synthesized) → Outputs (artifacts) |
+| **Modi** | Ingest (Add sources), Lint (Verify links), Reindex (Rebuild catalog) |
+| **Verwaltung** | Automatische index.md-Erstellung, append-only log.md, Wiki-Annotationen |
+| **Zielgruppe** | Enterprise Architects, Knowledge Managers, Documentation Teams |
+| **Sprachen** | DE / EN |
+
+**Trigger-Beispiele:**
+- *„Ingest document in die Knowledge Base"*
+- *„Add source to wiki"*
+- *„Create wiki annotation"*
+- *„Lint the wiki"*
+- *„Reindex the knowledge base"*
+- *„Check for stale references"*
+- *„Update index"*
+
+```
+.skills/knowledge-wiki/
+├── SKILL.md                        # Skill-Definition & 3 Modi (Ingest/Lint/Reindex)
+├── README.md                       # Dokumentation & Pattern-Erklärung
+└── references/
+    ├── index-template.md           # Template für auto-generated index.md
+    ├── log-template.md             # Template für append-only log.md
+    └── wiki-annotation-template.md # Template für .wiki.md Companion-Dateien
+```
+
+---
+
 ## Skill-Zusammenspiel
 
 Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
@@ -208,6 +243,10 @@ Die Skills können unabhängig voneinander oder kombiniert eingesetzt werden:
 - **nfr-checklist** + **architecture-decision-record**: NFRs als Decision Drivers für ADRs; bei Architekturrelevanz H wird ein ADR empfohlen
 - **nfr-checklist** + **c4-architecture**: C4-Diagramme zeigen betroffene Komponenten; Deployment-Diagramme referenzieren Verfügbarkeits-/Skalierbarkeits-NFRs
 - **nfr-checklist** + **it-solution-assessment**: NFRs liefern die Bewertungskriterien für die Lösungsbewertung
+- **knowledge-wiki** + **alle Skills**: Raw-Material-Sammlung; Wiki-Synthese von ADRs, Assessments, NFR-Katalogen; Ausgabe-Artefakte (Diagramme, Reports, Risikoregister) organisieren
+- **knowledge-wiki** + **architecture-decision-record**: ADRs in der Raw-Phase sammeln, Wiki-Synthese als Beslussungsgeschichte, Outputs als Entscheidungsregister
+- **knowledge-wiki** + **c4-architecture**: C4-Diagramme in Raw-Phase speichern, Wiki-Annotationen erstellen, Architektur-Evolutions-Dokumentation pflegen
+- **knowledge-wiki** + **nfr-checklist**: NFR-Kataloge versionieren, Wiki-Synthese der Anforderungsevolution, Architekturauswirkungen dokumentieren
 
 ## Lizenz
 
